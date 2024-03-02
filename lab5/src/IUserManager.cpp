@@ -10,9 +10,9 @@ using namespace std;
 
 void IUserManager::SignIn() {
 	string login, password;
-	cout << "Ââåäèòå ëîãèí" << endl;
+	cout << "Введите логин" << endl;
 	cin >> login;
-	cout << "Ââåäèòå ïàðîëü" << endl;
+	cout << "Введите пароль" << endl;
 	cin >> password;
 	User user = user_repo.GetByLogin(login);
 
@@ -22,31 +22,31 @@ void IUserManager::SignIn() {
 		file << user.m_id << " " << user.m_name << " " << user.m_login << " " << user.m_password << "\n";
 		file.close();
 
-		cout << "Ïîëüçîâàòåëü " << user.m_login << " áûë óñïåøíî àâòîðèçîâàí." << endl;
+		cout << "Пользователь " << user.m_login << " был успешно авторизован." << endl;
 	}
-	else cout << "Ãäå-òî òóò îøèáêà" << endl;
+	else cout << "Где-то тут ошибка" << endl;
 }
 
 void IUserManager::SignOut() {
 	ofstream file("../sessions.txt");
 	file << " ";
     file.close();
-    cout << "Âû âûøëè èç àêêàóíòà." << endl;
+    cout << "Вы вышли из аккаунта." << endl;
 	current_user = User();
 }
 
 void IUserManager::SignUp() {
 	string login, password, name;
-	cout << "Ââåäèòå ëîãèí" << endl;
+	cout << "Введите логин" << endl;
 	cin >> login;
-	cout << "Ââåäèòå ïàðîëü" << endl;
+	cout << "Введите пароль" << endl;
 	cin >> password;
-	cout << "Ââåäèòå èìÿ" << endl;
+	cout << "Введите имя" << endl;
 	cin >> name;
 
 	User tmp = user_repo.GetByLogin(login);
 	if (!tmp.m_login.empty()) {
-		cout << "Ëîãèí çàíÿò" << endl;
+		cout << "Логин занят" << endl;
 	}
 	else {
 		User user;
@@ -55,7 +55,7 @@ void IUserManager::SignUp() {
 		user.m_password = password;
 		user.m_id = user_repo.GetNewId();
 		user_repo.NewUser(user);
-		cout << "Ïîëüçîâàòåëü çàðåãèñòðèðîâàí, ââåäèòå äàííûå åùå ðàç, ÷òîáû âîéòè â àêêàóíò" << endl;
+		cout << "Пользователь зарегистрирован, введите данные еще раз, чтобы войти в аккаунт" << endl;
 		SignIn();
 	}
 }
@@ -70,19 +70,19 @@ void IUserManager::RestoreLast() {
 	User user = user_repo.GetById(id);
 	if (!user.m_login.empty()) {
 		current_user = user;
-		cout << "Ïîëüçîâàòåëü " << user.m_login << " áûë óñïåøíî àâòîðèçîâàí." << endl;
+		cout << "Пользователь " << user.m_login << " был успешно авторизован." << endl;
 	}
 	else {
-		cout << "Ïîñëåäíåé ñåññèè íå îáíàðóæåíî" << endl;
+		cout << "Последней сессии не обнаружено" << endl;
 	}
 }
 
 void IUserManager::LoginMenu() {
 	while (true) {
 		if (!IsAuthorized()) {
-			cout << "Êîìàíäû:" << endl << "Âîññòàíîâèòü ïîñëåäíþþ ñåññèþ - 1" << endl << "Âîéòè ñ äðóãîãî àêêàóíòà - 2" << endl << "Çàðåãèñòðèðîâàòüñÿ - 3" << endl << "Çàâåðøèòü ïðîãðàììó - 4" << endl;
+			cout << "Команды:" << endl << "Восстановить последнюю сессию - 1" << endl << "Войти с другого аккаунта - 2" << endl << "Зарегистрироваться - 3" << endl << "Завершить программу - 4" << endl;
 		}
-		else cout << "Êîìàíäû:" << endl << "Âûéòè - 2" << endl << "Çàâåðøèòü ïðîãðàììó - 4" << endl;
+		else cout << "Команды:" << endl << "Выйти - 2" << endl << "Завершить программу - 4" << endl;
 		int command;
 		cin >> command;
 		if (command == 1 && !IsAuthorized()) {
@@ -98,7 +98,7 @@ void IUserManager::LoginMenu() {
 		else if (command == 4) {
 			break;
 		}
-		else cout << "Íåèçâåñòíàÿ êîìàíäà" << endl;
+		else cout << "Неизвестная команда" << endl;
 	}
 }
 
