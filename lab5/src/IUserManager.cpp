@@ -8,12 +8,11 @@
 
 using namespace std;
 
-
 void IUserManager::SignIn() {
 	string login, password;
-	cout << "Ââåäèòå ëîãèí" << endl;
+	cout << "Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ Ã«Ã®Ã£Ã¨Ã­" << endl;
 	cin >> login;
-	cout << "Ââåäèòå ïàðîëü" << endl;
+	cout << "Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ Ã¯Ã Ã°Ã®Ã«Ã¼" << endl;
 	cin >> password;
 	User user = user_repo.GetByLogin(login);
 
@@ -23,31 +22,31 @@ void IUserManager::SignIn() {
 		file << user.m_id << " " << user.m_name << " " << user.m_login << " " << user.m_password << "\n";
 		file.close();
 
-		cout << "Ïîëüçîâàòåëü " << user.m_login << " áûë óñïåøíî àâòîðèçîâàí." << endl;
+		cout << "ÃÃ®Ã«Ã¼Ã§Ã®Ã¢Ã Ã²Ã¥Ã«Ã¼ " << user.m_login << " Ã¡Ã»Ã« Ã³Ã±Ã¯Ã¥Ã¸Ã­Ã® Ã Ã¢Ã²Ã®Ã°Ã¨Ã§Ã®Ã¢Ã Ã­." << endl;
 	}
-	else cout << "Ãäå-òî òóò îøèáêà" << endl;
+	else cout << "ÃƒÃ¤Ã¥-Ã²Ã® Ã²Ã³Ã² Ã®Ã¸Ã¨Ã¡ÃªÃ " << endl;
 }
 
 void IUserManager::SignOut() {
 	ofstream file("../sessions.txt");
 	file << " ";
     file.close();
-    cout << "Âû âûøëè èç àêêàóíòà." << endl;
+    cout << "Ã‚Ã» Ã¢Ã»Ã¸Ã«Ã¨ Ã¨Ã§ Ã ÃªÃªÃ Ã³Ã­Ã²Ã ." << endl;
 	current_user = User();
 }
 
 void IUserManager::SignUp() {
 	string login, password, name;
-	cout << "Ââåäèòå ëîãèí" << endl;
+	cout << "Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ Ã«Ã®Ã£Ã¨Ã­" << endl;
 	cin >> login;
-	cout << "Ââåäèòå ïàðîëü" << endl;
+	cout << "Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ Ã¯Ã Ã°Ã®Ã«Ã¼" << endl;
 	cin >> password;
-	cout << "Ââåäèòå èìÿ" << endl;
+	cout << "Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ Ã¨Ã¬Ã¿" << endl;
 	cin >> name;
 
 	User tmp = user_repo.GetByLogin(login);
 	if (!tmp.m_login.empty()) {
-		cout << "Ëîãèí çàíÿò" << endl;
+		cout << "Ã‹Ã®Ã£Ã¨Ã­ Ã§Ã Ã­Ã¿Ã²" << endl;
 	}
 	else {
 		User user;
@@ -56,7 +55,7 @@ void IUserManager::SignUp() {
 		user.m_password = password;
 		user.m_id = user_repo.GetNewId();
 		user_repo.NewUser(user);
-		cout << "Ïîëüçîâàòåëü çàðåãèñòðèðîâàí, ââåäèòå äàííûå åùå ðàç, ÷òîáû âîéòè â àêêàóíò" << endl;
+		cout << "ÃÃ®Ã«Ã¼Ã§Ã®Ã¢Ã Ã²Ã¥Ã«Ã¼ Ã§Ã Ã°Ã¥Ã£Ã¨Ã±Ã²Ã°Ã¨Ã°Ã®Ã¢Ã Ã­, Ã¢Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ Ã¤Ã Ã­Ã­Ã»Ã¥ Ã¥Ã¹Ã¥ Ã°Ã Ã§, Ã·Ã²Ã®Ã¡Ã» Ã¢Ã®Ã©Ã²Ã¨ Ã¢ Ã ÃªÃªÃ Ã³Ã­Ã²" << endl;
 		SignIn();
 	}
 }
@@ -71,19 +70,19 @@ void IUserManager::RestoreLast() {
 	User user = user_repo.GetById(id);
 	if (!user.m_login.empty()) {
 		current_user = user;
-		cout << "Ïîëüçîâàòåëü " << user.m_login << " áûë óñïåøíî àâòîðèçîâàí." << endl;
+		cout << "ÃÃ®Ã«Ã¼Ã§Ã®Ã¢Ã Ã²Ã¥Ã«Ã¼ " << user.m_login << " Ã¡Ã»Ã« Ã³Ã±Ã¯Ã¥Ã¸Ã­Ã® Ã Ã¢Ã²Ã®Ã°Ã¨Ã§Ã®Ã¢Ã Ã­." << endl;
 	}
 	else {
-		cout << "Ïîñëåäíåé ñåññèè íå îáíàðóæåíî" << endl;
+		cout << "ÃÃ®Ã±Ã«Ã¥Ã¤Ã­Ã¥Ã© Ã±Ã¥Ã±Ã±Ã¨Ã¨ Ã­Ã¥ Ã®Ã¡Ã­Ã Ã°Ã³Ã¦Ã¥Ã­Ã®" << endl;
 	}
 }
 
 void IUserManager::LoginMenu() {
 	while (true) {
 		if (!IsAuthorized()) {
-			cout << "Êîìàíäû:" << endl << "Âîññòàíîâèòü ïîñëåäíþþ ñåññèþ - 1" << endl << "Âîéòè ñ äðóãîãî àêêàóíòà - 2" << endl << "Çàðåãèñòðèðîâàòüñÿ - 3" << endl << "Çàâåðøèòü ïðîãðàììó - 4" << endl;
+			cout << "ÃŠÃ®Ã¬Ã Ã­Ã¤Ã»:" << endl << "Ã‚Ã®Ã±Ã±Ã²Ã Ã­Ã®Ã¢Ã¨Ã²Ã¼ Ã¯Ã®Ã±Ã«Ã¥Ã¤Ã­Ã¾Ã¾ Ã±Ã¥Ã±Ã±Ã¨Ã¾ - 1" << endl << "Ã‚Ã®Ã©Ã²Ã¨ Ã± Ã¤Ã°Ã³Ã£Ã®Ã£Ã® Ã ÃªÃªÃ Ã³Ã­Ã²Ã  - 2" << endl << "Ã‡Ã Ã°Ã¥Ã£Ã¨Ã±Ã²Ã°Ã¨Ã°Ã®Ã¢Ã Ã²Ã¼Ã±Ã¿ - 3" << endl << "Ã‡Ã Ã¢Ã¥Ã°Ã¸Ã¨Ã²Ã¼ Ã¯Ã°Ã®Ã£Ã°Ã Ã¬Ã¬Ã³ - 4" << endl;
 		}
-		else cout << "Êîìàíäû:" << endl << "Âûéòè - 2" << endl << "Çàâåðøèòü ïðîãðàììó - 4" << endl;
+		else cout << "ÃŠÃ®Ã¬Ã Ã­Ã¤Ã»:" << endl << "Ã‚Ã»Ã©Ã²Ã¨ - 2" << endl << "Ã‡Ã Ã¢Ã¥Ã°Ã¸Ã¨Ã²Ã¼ Ã¯Ã°Ã®Ã£Ã°Ã Ã¬Ã¬Ã³ - 4" << endl;
 		int command;
 		cin >> command;
 		if (command == 1 && !IsAuthorized()) {
@@ -99,7 +98,7 @@ void IUserManager::LoginMenu() {
 		else if (command == 4) {
 			break;
 		}
-		else cout << "Íåèçâåñòíàÿ êîìàíäà" << endl;
+		else cout << "ÃÃ¥Ã¨Ã§Ã¢Ã¥Ã±Ã²Ã­Ã Ã¿ ÃªÃ®Ã¬Ã Ã­Ã¤Ã " << endl;
 	}
 }
 
