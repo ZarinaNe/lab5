@@ -10,6 +10,7 @@ IUserRepository::IUserRepository() {
 	this->ReadFile();
 }
 
+//Метод, который возвращает объект пользователя по его идентификатору.
 User IUserRepository::GetById(int id) {
 	User sought_user;
 	for (User user : m_arr) {
